@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "pocker-rank"
+version = "0.1.0"
+description = ""
+authors = ["sangwookWoo <wjddm3@naver.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "3.9.19"
+supabase = "^2.5.3"
+streamlit = "^1.36.0"
+st-supabase-connection = "^2.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
