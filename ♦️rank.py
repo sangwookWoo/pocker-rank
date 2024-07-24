@@ -41,7 +41,7 @@ result = pd.merge(result, last_result, on="name", how="inner")
 result["change"] = result["final_score_x"] - result["final_score_y"]
 
 for rank, row in result.iterrows():
-    score = round(row["final_score_x"], 2)
+    score = round(row["final_score_x"], 3)
     change = round(row["change"], 5)
 
     st.metric(
