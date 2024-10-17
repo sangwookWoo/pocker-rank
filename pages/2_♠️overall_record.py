@@ -23,4 +23,4 @@ grouped_df = (
     .reset_index()
     .rename(columns={"player_id": "count"})
 )
-st.bar_chart(grouped_df.set_index("rank"))
+st.bar_chart(grouped_df.set_index("rank"), x_label="rank", y_label="count")
