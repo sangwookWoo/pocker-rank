@@ -43,3 +43,15 @@ def get_rankings():
         ),
         ttl="10m",
     )
+
+
+def get_player_rankings(player_id):
+    return execute_query(
+        st_supabase_client.table("rankings")
+        .select(
+            "rank",
+            "player_id",
+            "played_at",
+        )
+        .eq("player_id", player_id),
+    )
