@@ -7,16 +7,17 @@ from views import get_active_players, get_rankings
 st.write("# Pocker Rank 👋")
 
 # 내 마음속에 저장
-# st.markdown(
-#     """
-# <style>
-# [data-testid="stMetricValue"] {
-#     font-size: 28px;
-# }
-# </style>
-# """,
-#     unsafe_allow_html=True,
-# )
+st.markdown(
+    """
+<style>
+
+[data-testid="stMetricValue"] {
+    font-size: 27px;
+}
+</style>
+""",
+    unsafe_allow_html=True,
+)
 
 
 def calculate_standardized_rank(row):
@@ -56,14 +57,12 @@ result["change"] = result["final_score_x"] - result["final_score_y"]
 active_player_names = [player["name"] for player in get_active_players().data]
 active_players_result = result[result["name"].isin(active_player_names)].reset_index()
 
-col1, col2, col3 = st.columns(3)
-columns = [col1, col2, col3]
+
 for rank, row in active_players_result.iterrows():
     score = round(row["final_score_x"], 3)
     change = round(row["change"], 5)
 
-    column = columns[rank % len(columns)]
-    column.metric(
+    st.metric(
         label=f"RANK: {rank + 1} , SCORE : {score}",
         value=row["name"],
         delta=change,
