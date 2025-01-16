@@ -18,7 +18,14 @@ st_supabase_client = st.connection(
 
 def get_players():
     return execute_query(
-        st_supabase_client.table("players").select("id, name"), ttl="10m"
+        st_supabase_client.table("players").select("id, name, is_active"), ttl="10m"
+    )
+
+
+def get_active_players():
+    return execute_query(
+        st_supabase_client.table("players").select("id, name").eq("is_active", True),
+        ttl="10m",
     )
 
 
@@ -41,19 +48,6 @@ def get_rankings():
             "...players(name)",
             "played_at",
         ),
-        ttl="10m",
-    )
-
-
-def get_active_players_rankings():
-    return execute_query(
-        st_supabase_client.table("rankings")
-        .select(
-            "rank",
-            "...players(name)",
-            "played_at",
-        )
-        .filter("players.is_active", "eq", True),
         ttl="10m",
     )
 
