@@ -45,6 +45,19 @@ def get_rankings():
     )
 
 
+def get_active_players_rankings():
+    return execute_query(
+        st_supabase_client.table("rankings")
+        .select(
+            "rank",
+            "...players(name)",
+            "played_at",
+        )
+        .filter("players.is_active", "eq", True),
+        ttl="10m",
+    )
+
+
 def get_player_rankings(player_id):
     return execute_query(
         st_supabase_client.table("rankings")

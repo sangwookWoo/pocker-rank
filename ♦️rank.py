@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import streamlit as st
 
-from views import get_rankings
+from views import get_active_players_rankings, get_rankings
 
 st.write("# Pocker Rank 👋")
 
@@ -33,7 +33,7 @@ def get_last_rank_result(df):
     return df
 
 
-data = get_rankings().data
+data = get_active_players_rankings().data
 df = pd.DataFrame(data)
 result = get_rank_result(df)
 last_result = get_last_rank_result(df)
@@ -52,8 +52,6 @@ for rank, row in result.iterrows():
 
 raw_rankings_button = st.button("Click, If you wanna check raw rankings")
 if raw_rankings_button:
+    data = get_rankings().data
+    df = pd.DataFrame(data)
     st.dataframe(df, hide_index=True, use_container_width=True)
-
-calcuation_scores = st.button("Click, If you wanna see calcuation scores")
-if calcuation_scores:
-    st.dataframe(result, hide_index=True, use_container_width=True)
