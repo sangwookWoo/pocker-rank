@@ -6,6 +6,18 @@ from views import get_active_players_rankings, get_rankings
 
 st.write("# Pocker Rank 👋")
 
+# 내 마음속에 저장
+# st.markdown(
+#     """
+# <style>
+# [data-testid="stMetricValue"] {
+#     font-size: 28px;
+# }
+# </style>
+# """,
+#     unsafe_allow_html=True,
+# )
+
 
 def calculate_standardized_rank(row):
     return 2 * (row["total_players"] - row["rank"]) / (row["total_players"] - 1) - 1
@@ -40,11 +52,14 @@ last_result = get_last_rank_result(df)
 result = pd.merge(result, last_result, on="name", how="inner")
 result["change"] = result["final_score_x"] - result["final_score_y"]
 
+col1, col2, col3 = st.columns(3)
+columns = [col1, col2, col3]
 for rank, row in result.iterrows():
     score = round(row["final_score_x"], 3)
     change = round(row["change"], 5)
 
-    st.metric(
+    column = columns[rank % len(columns)]
+    column.metric(
         label=f"RANK: {rank + 1} , SCORE : {score}",
         value=row["name"],
         delta=change,
