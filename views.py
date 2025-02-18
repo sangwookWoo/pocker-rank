@@ -15,6 +15,8 @@ st_supabase_client = st.connection(
     key=SUPABASE_KEY,
 )
 
+SupabaseConnection
+
 
 def get_players():
     return execute_query(
@@ -62,3 +64,14 @@ def get_player_rankings(player_id):
         )
         .eq("player_id", player_id),
     )
+
+
+def get_head_to_head_record(player_names):
+    response = st_supabase_client.client.rpc(
+        "get_head_to_head_record", {"player_names": player_names}
+    ).execute()
+
+    if response.data:
+        return response.data
+    else:
+        return None
